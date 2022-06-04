@@ -10,12 +10,12 @@ let Y = [];
 let count = 1;
 
 
-let fr = 2;
+let fr = 4;
 let pointX, pointY;
 
 let counter;
 
-
+let pre = 0;
 
 let inc=20;
 //let dist=20;
@@ -35,7 +35,7 @@ let pictureList = ['hartung01.jpg',
                    'hartung10.jpg', 
                    'hartung11.jpg',
                    'hartung12.jpg'];
-
+let incPalette;
 let marginX, marginY;
 // let dist = [15, 20, 25, 30, 40, 50];
  
@@ -48,6 +48,8 @@ let coeffX, coeffY;
 let sec, min, h, day;  
 
 
+
+//--------------------------------------preload
 function preload() {
   h = hour()%12;
   img = loadImage(baseUrlPictures +
@@ -59,21 +61,21 @@ function preload() {
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
 }
-
+//-------------------------------------------SETUP
 function setup() {
   createCanvas(windowWidth, windowHeight);
   frameRate(fr);
-  
+  incPalette = 0;
   pointX=random(50, width-50);
   pointY=random(50, height-50);
   
   count = round(min/10);
-  counter = round(random(0, 4));
+  counter = round(random(0, 3));
   
 //------------------------------------------------palette 
-  img.resize(200, 0);
+  img.resize(100, 0);
   img.loadPixels();
-  palette.delete;
+  
   for (let i=0; 
        i < img.pixels.length; 
        i += 4) {
@@ -89,7 +91,9 @@ function setup() {
   console.log(counter, h); 
 }
 //-------------------------------------DRAW
-function draw() { 
+function draw() {
+  
+   
   let frameSec = fr;
   let frameMin = fr*60;
   let time = (frameMin*counter)+(frameSec+33);
@@ -104,7 +108,7 @@ function draw() {
   push();
   strokeWeight(round(random(1, 3)))
   noFill();
-  stroke(random(palette)); 
+  stroke(palette[incPalette]); 
   bezier(pointX+round(random(-20, 20)), 
          pointY+round(random(-20, 20)),
          random(windowWidth), 
@@ -113,14 +117,12 @@ function draw() {
          random(windowHeight),
          windowWidth/2+(random(-50, 50)), 
          random(windowHeight));
+  incPalette++;
+  if (incPalette == palette.lenght) {
+    incPalette = 0;
+  }
   pop();    
 }
-
-function keyPressed() {
-  h = hour()%12;
-    preload();
-    setup();
-} 
   
 function mousePressed() {
   imageMode(CENTER);
