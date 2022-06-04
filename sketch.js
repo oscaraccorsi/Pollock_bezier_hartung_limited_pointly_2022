@@ -73,7 +73,7 @@ function setup() {
 //------------------------------------------------palette 
   img.resize(200, 0);
   img.loadPixels();
-  
+  palette.delete;
   for (let i=0; 
        i < img.pixels.length; 
        i += 4) {
