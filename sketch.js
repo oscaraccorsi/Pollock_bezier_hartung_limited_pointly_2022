@@ -1,0 +1,132 @@
+let baseUrlPictures = ' https://oscaraccorsi.github.io/hartung/';
+let baseURLImage = 'https://oscaraccorsi.github.io/pictures/';
+let logo;
+
+let x = [];
+let y = [];
+
+let X = [];
+let Y = [];
+let count = 1;
+
+
+let fr = 2;
+let pointX, pointY;
+
+let counter;
+
+
+
+let inc=20;
+//let dist=20;
+
+let img;
+let palette = [];
+let palettes = [];
+let pictureList = ['hartung01.jpg', 
+                   'hartung02.jpg', 
+                   'hartung03.jpg', 
+                   'hartung04.jpeg',
+                   'hartung05.jpeg', 
+                   'hartung06.jpg', 
+                   'hartung07.jpg',  
+                   'hartung08.jpeg', 
+                   'hartung09.jpg', 
+                   'hartung10.jpg', 
+                   'hartung11.jpg', 
+                   'hartung12.jpg'];
+
+let marginX, marginY;
+// let dist = [15, 20, 25, 30, 40, 50];
+ 
+let dst;
+let frCnt;
+
+let oneCol;
+
+let coeffX, coeffY;
+let sec, min, h, day;  
+
+
+function preload() {
+  h = hour()%12;
+  img = loadImage(baseUrlPictures + pictureList[h]);
+  logo = loadImage(baseURLImage + 'good one white.png');
+}
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+}
+
+function setup() {
+  createCanvas(windowWidth, windowHeight);
+  //background(10); 
+  frameRate(fr);
+  
+  
+  pointX=random(50, width-50);
+  pointY=random(50, height-50);
+  
+  
+  count = round(min/10);
+  counter = round(random(0, 4));
+  
+//------------------------------------------------palette 
+  img.resize(200, 0);
+  img.loadPixels();
+  
+  for (let i=0; i < img.pixels.length; i += 4) {
+    let r = img.pixels[i]; 
+    let g = img.pixels[i+1]; 
+    let b = img.pixels[i+2]; 
+    let alpha = round(random(100, 250));
+    let c = color(r, g, b, alpha);
+    palette.push(c);    
+  }
+  console.log(baseUrlPictures + pictureList[h]);
+  console.log(counter); 
+}
+//-------------------------------------DRAW
+function draw() {
+  //background(20);
+  counter = round(random(1000));
+  let frameSec = fr;
+  let frameMin = fr*60;
+  let time = (frameMin*counter)+(frameSec+33);
+  
+  if (frameCount >= time) {
+    preload();
+    setup(); 
+    frameCount = 0;  
+  }
+  
+  push();
+  strokeWeight(round(random(1, 3)))
+  noFill();
+  stroke(random(palette));
+  bezier(pointX+round(random(-20, 20)), 
+         pointY+round(random(-20, 20)),
+         random(windowWidth), 
+         random(windowHeight),
+         random(windowWidth), 
+         random(windowHeight),
+         windowWidth/2+(random(-50, 50)), 
+         random(windowHeight));
+  pop();  
+}
+
+function keyPressed() {
+  clear();
+  preload()
+  setup();
+} 
+
+function mousePressed() {
+  imageMode(CENTER);
+  let xLogo = windowWidth-40;
+  logo.resize(40, 0);
+  image(logo, xLogo, windowHeight-25);
+  tint(200);
+  imageMode(CORNER);
+  save();  
+}
