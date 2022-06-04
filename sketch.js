@@ -20,11 +20,11 @@ let counter;
 let inc=20;
 //let dist=20;
 
-let img;
+let img; 
 let palette = [];
 let palettes = [];
 let pictureList = ['hartung01.jpg', 
-                   'hartung02.jpg', 
+                   'hartung13.jpg', 
                    'hartung03.jpg', 
                    'hartung04.jpeg',
                    'hartung05.jpeg', 
@@ -33,14 +33,14 @@ let pictureList = ['hartung01.jpg',
                    'hartung08.jpeg', 
                    'hartung09.jpg', 
                    'hartung10.jpg', 
-                   'hartung11.jpg', 
+                   'hartung11.jpg',
                    'hartung12.jpg'];
 
 let marginX, marginY;
 // let dist = [15, 20, 25, 30, 40, 50];
  
 let dst;
-let frCnt;
+let frCnt;  
 
 let oneCol;
 
@@ -50,8 +50,10 @@ let sec, min, h, day;
 
 function preload() {
   h = hour()%12;
-  img = loadImage(baseUrlPictures + pictureList[h]);
-  logo = loadImage(baseURLImage + 'good one white.png');
+  img = loadImage(baseUrlPictures +
+                  pictureList[h]);
+  logo = loadImage(baseURLImage + 
+                   'good one white.png');
 }
 
 function windowResized() {
@@ -60,13 +62,10 @@ function windowResized() {
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  //background(10); 
   frameRate(fr);
-  
   
   pointX=random(50, width-50);
   pointY=random(50, height-50);
-  
   
   count = round(min/10);
   counter = round(random(0, 4));
@@ -75,7 +74,10 @@ function setup() {
   img.resize(200, 0);
   img.loadPixels();
   
-  for (let i=0; i < img.pixels.length; i += 4) {
+  for (let i=0; 
+       i < img.pixels.length; 
+       i += 4) {
+    
     let r = img.pixels[i]; 
     let g = img.pixels[i+1]; 
     let b = img.pixels[i+2]; 
@@ -84,26 +86,25 @@ function setup() {
     palette.push(c);    
   }
   console.log(baseUrlPictures + pictureList[h]);
-  console.log(counter); 
+  console.log(counter, h); 
 }
 //-------------------------------------DRAW
-function draw() {
-  //background(20);
-  counter = round(random(1000));
+function draw() { 
   let frameSec = fr;
   let frameMin = fr*60;
   let time = (frameMin*counter)+(frameSec+33);
   
   if (frameCount >= time) {
+    h = hour()%12;
     preload();
-    setup(); 
+    setup();
     frameCount = 0;  
   }
   
   push();
   strokeWeight(round(random(1, 3)))
   noFill();
-  stroke(random(palette));
+  stroke(random(palette)); 
   bezier(pointX+round(random(-20, 20)), 
          pointY+round(random(-20, 20)),
          random(windowWidth), 
@@ -112,15 +113,15 @@ function draw() {
          random(windowHeight),
          windowWidth/2+(random(-50, 50)), 
          random(windowHeight));
-  pop();  
+  pop();    
 }
 
 function keyPressed() {
-  clear();
-  preload()
-  setup();
+  h = hour()%12;
+    preload();
+    setup();
 } 
-
+  
 function mousePressed() {
   imageMode(CENTER);
   let xLogo = windowWidth-40;
