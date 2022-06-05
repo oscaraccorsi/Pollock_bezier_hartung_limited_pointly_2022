@@ -103,7 +103,6 @@ function draw() {
   let time = (frameMin*counter)+(frameSec+33);
   
   if (frameCount >= time) {
-    //cleanArray();
     clear(); 
     h = hour()%12;
     preload();
@@ -123,18 +122,9 @@ function draw() {
          random(windowHeight),
          windowWidth/2+(random(-50, 50)), 
          random(windowHeight));
-  
   pop();    
 }
-function cleanArray() {
-  palette.delete;
-  //palette = []; 
-  // for (let i = 0;
-  //     i < palette.lenght;
-  //     i++) {
-  //   palette.pop;
-  // }
-}
+
   
 function mousePressed() {
   imageMode(CENTER);
