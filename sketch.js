@@ -10,7 +10,7 @@ let Y = [];
 let count = 1;
 
 
-let fr = 3;
+let fr;
 let pointX, pointY;
 
 let counter;
@@ -35,7 +35,7 @@ let pictureList = ['hartung01.jpg',
                    'hartung10.jpg', 
                    'hartung29.jpg',
                    'hartung12.jpg'];
-//let incPalette = 0;
+
 let marginX, marginY;
 // let dist = [15, 20, 25, 30, 40, 50];
  
@@ -64,11 +64,8 @@ function windowResized() {
 //-------------------------------------------SETUP
 function setup() {
   createCanvas(windowWidth, windowHeight);
+  fr = round(random(1, 6));
   frameRate(fr);
-  
-  setInterval(function() {
-        window.location.reload(1);
-      }, 1000*360);
   
   pointX=random(50, width-50);
   pointY=random(50, height-50);
@@ -91,25 +88,22 @@ function setup() {
     let c = color(r, g, b, alpha);
     palette.push(c);
   }
-  console.log(baseUrlPictures + pictureList[h]);
-   
+  console.log(baseUrlPictures + pictureList[h], fr);   
 }
+
 //-------------------------------------DRAW
 function draw() {
-  
    
   let frameSec = fr;
   let frameMin = fr*60;
   let time = (frameMin*counter)+(frameSec+33);
   
+
   if (frameCount >= time) {
-    clear(); 
-    h = hour()%12;
-    preload();
-    //setup();
+    reloadPage();
     frameCount = 0;  
   }
-  
+
   push();
   strokeWeight(round(random(1, 3)))
   noFill();
@@ -122,9 +116,12 @@ function draw() {
          random(windowHeight),
          windowWidth/2+(random(-50, 50)), 
          random(windowHeight));
-  pop();    
+  pop();
+  
 }
-
+ function reloadPage() {
+   window.location.reload();
+ }
   
 function mousePressed() {
   imageMode(CENTER);
