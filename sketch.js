@@ -10,7 +10,7 @@ let Y = [];
 let count = 1;
 
 
-let fr = 4;
+let fr = 3;
 let pointX, pointY;
 
 let counter;
@@ -33,9 +33,9 @@ let pictureList = ['hartung01.jpg',
                    'hartung08.jpeg', 
                    'hartung09.jpg', 
                    'hartung10.jpg', 
-                   'hartung11.jpg',
+                   'hartung29.jpg',
                    'hartung12.jpg'];
-let incPalette;
+//let incPalette = 0;
 let marginX, marginY;
 // let dist = [15, 20, 25, 30, 40, 50];
  
@@ -47,7 +47,7 @@ let oneCol;
 let coeffX, coeffY;
 let sec, min, h, day;  
 
-
+ 
 
 //--------------------------------------preload
 function preload() {
@@ -65,7 +65,11 @@ function windowResized() {
 function setup() {
   createCanvas(windowWidth, windowHeight);
   frameRate(fr);
-  incPalette = 0;
+  
+  setInterval(function() {
+        window.location.reload(1);
+      }, 1000*360);
+  
   pointX=random(50, width-50);
   pointY=random(50, height-50);
   
@@ -85,10 +89,10 @@ function setup() {
     let b = img.pixels[i+2]; 
     let alpha = round(random(100, 250));
     let c = color(r, g, b, alpha);
-    palette.push(c);    
+    palette.push(c);
   }
   console.log(baseUrlPictures + pictureList[h]);
-  console.log(counter, h); 
+   
 }
 //-------------------------------------DRAW
 function draw() {
@@ -99,16 +103,18 @@ function draw() {
   let time = (frameMin*counter)+(frameSec+33);
   
   if (frameCount >= time) {
+    //cleanArray();
+    clear(); 
     h = hour()%12;
     preload();
-    setup();
+    //setup();
     frameCount = 0;  
   }
   
   push();
   strokeWeight(round(random(1, 3)))
   noFill();
-  stroke(palette[incPalette]); 
+  stroke(random(palette)); 
   bezier(pointX+round(random(-20, 20)), 
          pointY+round(random(-20, 20)),
          random(windowWidth), 
@@ -117,11 +123,17 @@ function draw() {
          random(windowHeight),
          windowWidth/2+(random(-50, 50)), 
          random(windowHeight));
-  incPalette++;
-  if (incPalette == palette.lenght) {
-    incPalette = 0;
-  }
+  
   pop();    
+}
+function cleanArray() {
+  palette.delete;
+  //palette = []; 
+  // for (let i = 0;
+  //     i < palette.lenght;
+  //     i++) {
+  //   palette.pop;
+  // }
 }
   
 function mousePressed() {
