@@ -64,6 +64,7 @@ function windowResized() {
 //-------------------------------------------SETUP
 function setup() {
   createCanvas(windowWidth, windowHeight);
+  background();
   fr = round(random(1, 6));
   frameRate(fr);
   
